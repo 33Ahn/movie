@@ -25,3 +25,5 @@ Be able to create an express server app demonstrating knowledge of Express and R
 12. Show Router can delete a show
 13. Include Server-Side Validation when updating the “status” of a show. The “status” field cannot be empty and must be between 5 and 25 characters. (OPTIONAL)
 14. Include Server-Side Validation when updating the “rating” of a show. The “rating” field cannot be empty.  (OPTIONAL)
+
+15. got rid of movie-theater-api remote repo and created a new repo "movie"
