@@ -2,43 +2,43 @@ const express = require("express");
 const router = express.Router();
 
 // Get the Show, User database
-const {User, Show} = require("../models/index");
+const { User, Show } = require("../models/index"); // ES6 - object destructuring  assigns properties of an object to individual variables
 
-// Add middleware
+// Add middleware to parse body from the request
 router.use(express.json());
 router.use(express.urlencoded({extended: true}));
 
-// Server-Side Validation
-const {check, validationResult} = require("express-validator");
+// Server-Side Validation, get two methods
+const { check, validationResult } = require("express-validator");
 
 
 // Define Routes
-// Show Router can get all shows from the database using the endpoint “/shows”
+// Router can get all shows from the database using the endpoint “/shows”
 router.get("/", async (req, res) => {
     const allShows = await Show.findAll();
     res.json(allShows);
 });
 
-// Show Router can get one show from the database using an endpoint such as “/shows/2” or “/shows/5”
+// Router can get one show from the database using an endpoint such as “/shows/2” or “/shows/5”
 router.get("/:id", async (req, res) => {
-    const showId = await Show.findByPk(req.params.id);
+    const showId = await Show.findByPk(req.params.id);  
     res.json(showId);
 });
 
-// Show Router can get shows of a specific genre using an endpoint such as “/shows/genres/Comedy“ or “/shows/genres/Drama”
+// Router can get shows of a specific genre using an endpoint such as “/shows/genres/Comedy“ or “/shows/genres/Drama”
 router.get("/genres/:name", async (req, res) => {
     let { name } = req.params;
     name = name[0].toUpperCase() + name.slice(1);
     const show = await Show.findAll({
         where: {
-            genre: name,
-        },
+            genre: name
+        }
     });
 
     res.json(show);
 });
 
-// Show Router can update a rating on a specific show using an endpoint such as “/shows/4/watched” or “/shows/9/watched”    
+// Router can update a rating on a specific show using an endpoint such as “/shows/4/watched” or “/shows/9/watched”    
 // Include Server-Side Validation when updating the “rating” of a show. The “rating” field cannot be empty.  (OPTIONAL)
 
 router.put("/:id/watched", 
@@ -53,15 +53,15 @@ router.put("/:id/watched",
             res.json({error: errors});
         }
 
-    const {id} = req.params;
-    const {rating} = req.body;
+    const { id } = req.params;
+    const { rating } = req.body;
     const show = await Show.findByPk(id);
-    const updatedShow = await show.update({rating});
+    const updatedShow = await show.update({ rating });
 
     res.json(show);
 });
 
-//Show Router can update a rating on a specific show using an endpoint such as “/shows/4/watched” or “/shows/9/watched”
+
 // Include Server-Side Validation when updating the “status” of a show. The “status” field cannot be empty and must be between 5 and 25 characters. (OPTIONAL)
 
 router.put("/:id/updates", 
@@ -76,18 +76,18 @@ router.put("/:id/updates",
             res.json({error: errors});
         }
 
-        const {id} = req.params;
-        const {status} = req.body;
+        const { id } = req.params;
+        const { status } = req.body;
         const show = await Show.findByPk(id);
-        const updatedShow = await show.update({status});
+        const updatedShow = await show.update({ status });
 
         res.json(show);
     }
 );
 
-// Show Router can update the status on a specific show from “canceled” to “on-going” or vice versa using an endpoint such as “/shows/3/updates” or “/shows/9/updates”
+// Router can update the status on a specific show from “canceled” to “on-going” or vice versa using an endpoint such as “/shows/3/updates” or “/shows/9/updates”
 router.put("/:id/updates", async (req, res) => {
-    const {id} = req.params;
+    const { id } = req.params;
     const show = await Show.findByPk(id);
 
     // Alternates status of show
@@ -98,9 +98,9 @@ router.put("/:id/updates", async (req, res) => {
 });
 
 
-// Show Router can delete a show
+// Router can delete a show
 router.delete("/:id", async (req, res) => {    
-    const {id} = req.params;
+    const { id } = req.params;
     const show = await Show.findByPk(id);
     const deletedShow = await show.destroy();
     res.json(deletedShow);

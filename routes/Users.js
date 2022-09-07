@@ -1,10 +1,10 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router(); // create Express Router
 
 // Get the User, Show database
-const {User, Show} = require("../models/index");
+const { User, Show } = require("../models/index");
 
-// Add middleware
+// Add middleware to parse body from the request
 router.use(express.json());
 router.use(express.urlencoded({extended: true}));
 
@@ -45,7 +45,7 @@ router.get("/:id", async (req, res) => {
 
 // User Router can update and add a show if a user has watched it using an endpoint such as “/users/2/shows/9” or “/users/1/shows/2”
  router.put("/:id/shows/:showId", async (req, res) => {
-    const {id, showId} = req.params;
+    const { id, showId } = req.params;
     const user = await User.findByPk(id);
     const show = await Show.findByPk(showId);
     user.addShow(show);
