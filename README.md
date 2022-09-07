@@ -9,6 +9,36 @@ Be able to create an express server app demonstrating knowledge of Express and R
 3. Express Routers
 4. Server-Side Validation
 
+### Express Connection
+1. Install Dependencies 
+        install sqlite sequelize express express-validator nodemon
+
+2. Create Express Server
+        Create a file for your server, and initialize it on port 3000 using Express
+
+3. Define Routes -- Create the route handlers for the project, per these definitions:
+
+    Users
+
+        GET all users
+        GET one user
+        GET all shows watched by a user (user id in req.params) 
+        PUT update and add a show if a user has watched it
+
+    Shows
+
+        GET all shows
+        GET one show
+        GET shows of a particular genre (genre in req.params)
+        PUT update rating of a show that has been watched
+        PUT update the status of a show 
+        DELETE a show
+        Make sure to include your routers in a directory named routes
+
+4. Tests -- to test your endpoints, use Postman
+5. Commit & Push
+    git add . , git commit -m "somemessge", git push
+
 ### Checklists
 
 1. Create your Express Server
