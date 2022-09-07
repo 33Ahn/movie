@@ -42,7 +42,7 @@ router.get("/genres/:name", async (req, res) => {
 // Include Server-Side Validation when updating the “rating” of a show. The “rating” field cannot be empty.  (OPTIONAL)
 
 router.put("/:id/watched", 
-    [   check("rating")
+    [check("rating")
             .not()
             .isEmpty()
             .trim()
